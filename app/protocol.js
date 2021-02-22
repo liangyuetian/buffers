@@ -15,6 +15,8 @@ function store(buf) {
             }
             const data = inflatedBuf.toString()
             bitmasks.forEach((bitmask, index) => {
+                database[index][key] = data
+
                 if (db & bitmask) {
                     database[index][key] = data
                 }
@@ -33,6 +35,4 @@ zlib.deflate('my message', (err, deflateBuf) => {
     }
     const message = Buffer.concat([header, deflateBuf])
     store(message)
-
-    console.log(database)
 })
